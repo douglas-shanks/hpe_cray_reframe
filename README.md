@@ -14,7 +14,7 @@ popd
 ## Clone the tests
 
 ```
-https://github.com/douglas-shanks/hpe_cray_reframe
+https://github.com/douglas-shanks/hpe_cray_reframe.git
 cd hpe_cray_reframe
 ```
 
