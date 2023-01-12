@@ -1,0 +1,85 @@
+# Copyright 2016-2022 Swiss National Supercomputing Centre (CSCS/ETH Zurich)
+# ReFrame Project Developers. See the top-level LICENSE file for details.
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
+import reframe as rfm
+import reframe.utility.osext as osext
+import reframe.utility.sanity as sn
+
+
+@rfm.simple_test
+class DefaultPrgEnvCheck(rfm.RunOnlyRegressionTest):
+    descr = 'Ensure PrgEnv-cray is loaded by default'
+    valid_prog_environs = ['builtin']
+    valid_systems = ['archer2:login']
+    executable = 'module'
+    executable_opts = ['--terse', 'list']
+    tags = {'production', 'craype'}
+
+    @run_after('init')
+    def load_cray_module(self):
+        if self.current_system.name in ['hohgant']:
+            self.modules = ['cray']
+
+    @run_before('sanity')
+    def set_sanity(self):
+        self.sanity_patterns = sn.assert_found(r'^PrgEnv-cray', self.stderr)
+
+
+@rfm.simple_test
+class EnvironmentCheck(rfm.RunOnlyRegressionTest):
+    descr = 'Ensure programming environment is loaded correctly'
+    valid_systems = ['archer2:login']
+    valid_prog_environs = ['PrgEnv-aocc', 'PrgEnv-cray', 'PrgEnv-gnu']
+    executable = 'module'
+    executable_opts = ['--terse', 'list']
+    tags = {'production', 'craype'}
+
+    @run_before('sanity')
+    def set_sanity(self):
+        module_patt = rf'^{self.current_environ.name}'
+        self.sanity_patterns = sn.assert_found(module_patt, self.stderr)
+
+
+class CrayVariablesCheck(rfm.RunOnlyRegressionTest):
+    cray_module = parameter()
+    descr = 'Check for standard Cray variables'
+    valid_prog_environs = ['builtin']
+    executable = 'module'
+    tags = {'production', 'craype'}
+    maintainers = ['EK', 'TM']
+
+    @run_before('run')
+    def set_exec_opts(self):
+        self.executable_opts = ['show', self.cray_module]
+
+    @run_before('sanity')
+    def set_sanity(self):
+        envvar_prefix = self.cray_module.upper().replace('-', '_')
+        self.sanity_patterns = sn.all([
+            sn.assert_found(f'{envvar_prefix}_PREFIX', self.stderr),
+            sn.assert_found(f'{envvar_prefix}_VERSION', self.stderr)
+        ])
+
+
+@rfm.simple_test
+class CrayVariablesCheckarcher2(CrayVariablesCheck):
+    cray_module = parameter([
+        'cray-fftw', 'cray-hdf5', 'cray-hdf5-parallel', 'cray-libsci',
+        'cray-mpich', 'cray-netcdf', 'cray-netcdf-parallel', 
+        'cray-python', 'atp', 'cray-stat','gdb4hpc','valgrind4hpc'
+        'papi', 'cray-pmi'
+    ])
+    valid_systems = ['archer2:login']
+
+    @run_after('init')
+    def skip_modules(self):
+        # FIXME: These modules should be fixed in later releases
+        cdt = osext.cray_cdt_version()
+        if ((cdt and cdt <= '20.11' and
+             self.cray_module in {'cray-petsc-complex',
+                                  'cray-petsc-complex-64',
+                                  'cudatoolkit'})):
+            self.valid_systems = []
+
