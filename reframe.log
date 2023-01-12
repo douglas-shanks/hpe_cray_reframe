@@ -1,0 +1,163 @@
+[2023-01-12T11:21:53] debug: reframe: Initializing runtime
+[2023-01-12T11:21:53] debug: reframe: Initializing system partition 'login'
+[2023-01-12T11:21:53] debug: reframe: Initializing system partition 'compute'
+[2023-01-12T11:21:53] debug: reframe: Initializing system 'archer2'
+[2023-01-12T11:21:53] debug: reframe: Initializing modules system 'lmod'
+[2023-01-12T11:21:53] debug: reframe: detecting topology info for archer2:login
+[2023-01-12T11:21:53] debug: reframe: > found topology file '/home/y02/y02/dshanks/.reframe/topology/archer2-login/processor.json'; loading...
+[2023-01-12T11:21:53] debug: reframe: > device auto-detection is not supported
+[2023-01-12T11:21:53] debug: reframe: detecting topology info for archer2:compute
+[2023-01-12T11:21:53] debug: reframe: > no topology file found; auto-detecting...
+[2023-01-12T11:21:53] debug: reframe: > device auto-detection is not supported
+[2023-01-12T11:21:53] debug: reframe: [ReFrame Environment]
+  RFM_AUTODETECT_FQDN=<not set>
+  RFM_AUTODETECT_METHOD=<not set>
+  RFM_AUTODETECT_XTHOSTNAME=<not set>
+  RFM_CHECK_SEARCH_PATH=<not set>
+  RFM_CHECK_SEARCH_RECURSIVE=<not set>
+  RFM_CLEAN_STAGEDIR=<not set>
+  RFM_COLORIZE=<not set>
+  RFM_COMPRESS_REPORT=<not set>
+  RFM_CONFIG_FILES=<not set>
+  RFM_CONFIG_PATH=<not set>
+  RFM_DUMP_PIPELINE_PROGRESS=<not set>
+  RFM_GIT_TIMEOUT=<not set>
+  RFM_HTTPJSON_URL=<not set>
+  RFM_IGNORE_REQNODENOTAVAIL=<not set>
+  RFM_INSTALL_PREFIX=/work/y02/y02/dshanks/reframe
+  RFM_KEEP_STAGE_FILES=<not set>
+  RFM_MODULE_MAPPINGS=<not set>
+  RFM_MODULE_MAP_FILE=<not set>
+  RFM_NON_DEFAULT_CRAYPE=<not set>
+  RFM_OUTPUT_DIR=<not set>
+  RFM_PERFLOG_DIR=<not set>
+  RFM_PERF_INFO_LEVEL=<not set>
+  RFM_PIPELINE_TIMEOUT=<not set>
+  RFM_PREFIX=<not set>
+  RFM_PURGE_ENVIRONMENT=<not set>
+  RFM_REMOTE_DETECT=<not set>
+  RFM_REMOTE_WORKDIR=<not set>
+  RFM_REPORT_FILE=<not set>
+  RFM_REPORT_JUNIT=<not set>
+  RFM_RESOLVE_MODULE_CONFLICTS=<not set>
+  RFM_SAVE_LOG_FILES=<not set>
+  RFM_STAGE_DIR=<not set>
+  RFM_SYSLOG_ADDRESS=<not set>
+  RFM_SYSTEM=<not set>
+  RFM_TIMESTAMP_DIRS=<not set>
+  RFM_TRAP_JOB_ERRORS=<not set>
+  RFM_UNLOAD_MODULES=<not set>
+  RFM_USER_MODULES=<not set>
+  RFM_USE_LOGIN_SHELL=<not set>
+  RFM_VERBOSE=<not set>
+[2023-01-12T11:21:53] info: reframe: [ReFrame Setup]
+[2023-01-12T11:21:53] info: reframe:   version:           4.0.1
+[2023-01-12T11:21:53] info: reframe:   command:           '/work/y02/y02/dshanks/reframe/bin/reframe -C config/archer2_settings.py -c tests/ -R -l'
+[2023-01-12T11:21:53] info: reframe:   launched by:       dshanks@ln04
+[2023-01-12T11:21:53] info: reframe:   working directory: '/mnt/lustre/a2fs-work2/work/y02/y02/dshanks/reframe/hpe_cray_reframe'
+[2023-01-12T11:21:53] info: reframe:   settings files:    '<builtin>', 'config/archer2_settings.py'
+[2023-01-12T11:21:53] info: reframe:   check search path: (R) '/mnt/lustre/a2fs-work2/work/y02/y02/dshanks/reframe/hpe_cray_reframe/tests'
+[2023-01-12T11:21:53] info: reframe:   stage directory:   '/mnt/lustre/a2fs-work2/work/y02/y02/dshanks/reframe/hpe_cray_reframe/stage'
+[2023-01-12T11:21:53] info: reframe:   output directory:  '/mnt/lustre/a2fs-work2/work/y02/y02/dshanks/reframe/hpe_cray_reframe/output'
+[2023-01-12T11:21:53] info: reframe:   log files:         '/mnt/lustre/a2fs-work2/work/y02/y02/dshanks/reframe/hpe_cray_reframe/reframe.log'
+[2023-01-12T11:21:53] info: reframe: 
+[2023-01-12T11:21:53] debug: reframe: Looking for tests in '/mnt/lustre/a2fs-work2/work/y02/y02/dshanks/reframe/hpe_cray_reframe/tests'
+[2023-01-12T11:21:53] debug: reframe: Validating '/mnt/lustre/a2fs-work2/work/y02/y02/dshanks/reframe/hpe_cray_reframe/tests/prgenv/mpi.py': OK
+[2023-01-12T11:21:54] debug: reframe:   > Loaded 4 test(s)
+[2023-01-12T11:21:54] debug: reframe: Validating '/mnt/lustre/a2fs-work2/work/y02/y02/dshanks/reframe/hpe_cray_reframe/tests/prgenv/environ_check.py': OK
+[2023-01-12T11:21:54] debug: reframe:   > Loaded 15 test(s)
+[2023-01-12T11:21:54] debug: reframe: Validating '/mnt/lustre/a2fs-work2/work/y02/y02/dshanks/reframe/hpe_cray_reframe/tests/prgenv/ulimit_check.py': OK
+[2023-01-12T11:21:54] debug: reframe:   > Loaded 1 test(s)
+[2023-01-12T11:21:54] debug: reframe: Validating '/mnt/lustre/a2fs-work2/work/y02/y02/dshanks/reframe/hpe_cray_reframe/tests/prgenv/cpu_target_check.py': OK
+[2023-01-12T11:21:54] debug: reframe:   > Loaded 1 test(s)
+[2023-01-12T11:21:54] debug: reframe: Validating '/mnt/lustre/a2fs-work2/work/y02/y02/dshanks/reframe/hpe_cray_reframe/tests/prgenv/helloworld.py': OK
+[2023-01-12T11:21:54] debug: reframe:   > Loaded 2 test(s)
+[2023-01-12T11:21:54] debug: reframe: Validating '/mnt/lustre/a2fs-work2/work/y02/y02/dshanks/reframe/hpe_cray_reframe/tests/libraries/cray-libsci/scalapack_compile_run.py': OK
+[2023-01-12T11:21:54] debug: reframe:   > Loaded 1 test(s)
+[2023-01-12T11:21:54] debug: reframe: Validating '/mnt/lustre/a2fs-work2/work/y02/y02/dshanks/reframe/hpe_cray_reframe/tests/hello/hello.py': OK
+[2023-01-12T11:21:54] debug: reframe:   > Loaded 3 test(s)
+[2023-01-12T11:21:54] verbose: reframe: Loaded 27 test(s)
+[2023-01-12T11:21:54] verbose: reframe: Generated 48 test case(s)
+[2023-01-12T11:21:54] verbose: reframe: Filtering test cases(s) by name: 48 remaining
+[2023-01-12T11:21:54] verbose: reframe: Filtering test cases(s) by tags: 48 remaining
+[2023-01-12T11:21:54] verbose: reframe: Filtering test cases(s) by other attributes: 48 remaining
+[2023-01-12T11:21:54] debug: reframe: Building and validating the full test DAG
+[2023-01-12T11:21:54] debug: reframe: Full test DAG:
+[2023-01-12T11:21:54] debug: reframe:   ('MpiInitTest_3', 'archer2:compute', 'PrgEnv-gnu') -> []
+  ('MpiInitTest_3', 'archer2:compute', 'PrgEnv-cray') -> []
+  ('MpiInitTest_3', 'archer2:compute', 'PrgEnv-aocc') -> []
+  ('MpiInitTest_2', 'archer2:compute', 'PrgEnv-gnu') -> []
+  ('MpiInitTest_2', 'archer2:compute', 'PrgEnv-cray') -> []
+  ('MpiInitTest_2', 'archer2:compute', 'PrgEnv-aocc') -> []
+  ('MpiInitTest_1', 'archer2:compute', 'PrgEnv-gnu') -> []
+  ('MpiInitTest_1', 'archer2:compute', 'PrgEnv-cray') -> []
+  ('MpiInitTest_1', 'archer2:compute', 'PrgEnv-aocc') -> []
+  ('MpiInitTest_0', 'archer2:compute', 'PrgEnv-gnu') -> []
+  ('MpiInitTest_0', 'archer2:compute', 'PrgEnv-cray') -> []
+  ('MpiInitTest_0', 'archer2:compute', 'PrgEnv-aocc') -> []
+  ('EnvironmentCheck', 'archer2:login', 'PrgEnv-gnu') -> []
+  ('EnvironmentCheck', 'archer2:login', 'PrgEnv-cray') -> []
+  ('EnvironmentCheck', 'archer2:login', 'PrgEnv-aocc') -> []
+  ('UlimitCheck', 'archer2:compute', 'PrgEnv-gnu') -> []
+  ('UlimitCheck', 'archer2:compute', 'PrgEnv-cray') -> []
+  ('UlimitCheck', 'archer2:compute', 'PrgEnv-aocc') -> []
+  ('CrayCPUTargetTest', 'archer2:login', 'PrgEnv-gnu') -> []
+  ('CrayCPUTargetTest', 'archer2:login', 'PrgEnv-cray') -> []
+  ('CrayCPUTargetTest', 'archer2:login', 'PrgEnv-aocc') -> []
+  ('HelloWorldTestMPIOpenMP', 'archer2:compute', 'PrgEnv-gnu') -> []
+  ('HelloWorldTestMPIOpenMP', 'archer2:compute', 'PrgEnv-cray') -> []
+  ('HelloWorldTestMPIOpenMP', 'archer2:compute', 'PrgEnv-aocc') -> []
+  ('HelloWorldTestMPI', 'archer2:compute', 'PrgEnv-gnu') -> []
+  ('HelloWorldTestMPI', 'archer2:compute', 'PrgEnv-cray') -> []
+  ('HelloWorldTestMPI', 'archer2:compute', 'PrgEnv-aocc') -> []
+  ('ScaLAPACKTest', 'archer2:compute', 'PrgEnv-gnu') -> []
+  ('ScaLAPACKTest', 'archer2:compute', 'PrgEnv-cray') -> []
+  ('ScaLAPACKTest', 'archer2:compute', 'PrgEnv-aocc') -> []
+  ('HelloMultiLangTest_2', 'archer2:login', 'PrgEnv-gnu') -> []
+  ('HelloMultiLangTest_2', 'archer2:login', 'PrgEnv-cray') -> []
+  ('HelloMultiLangTest_2', 'archer2:login', 'PrgEnv-aocc') -> []
+  ('HelloMultiLangTest_2', 'archer2:compute', 'PrgEnv-gnu') -> []
+  ('HelloMultiLangTest_2', 'archer2:compute', 'PrgEnv-cray') -> []
+  ('HelloMultiLangTest_2', 'archer2:compute', 'PrgEnv-aocc') -> []
+  ('HelloMultiLangTest_1', 'archer2:login', 'PrgEnv-gnu') -> []
+  ('HelloMultiLangTest_1', 'archer2:login', 'PrgEnv-cray') -> []
+  ('HelloMultiLangTest_1', 'archer2:login', 'PrgEnv-aocc') -> []
+  ('HelloMultiLangTest_1', 'archer2:compute', 'PrgEnv-gnu') -> []
+  ('HelloMultiLangTest_1', 'archer2:compute', 'PrgEnv-cray') -> []
+  ('HelloMultiLangTest_1', 'archer2:compute', 'PrgEnv-aocc') -> []
+  ('HelloMultiLangTest_0', 'archer2:login', 'PrgEnv-gnu') -> []
+  ('HelloMultiLangTest_0', 'archer2:login', 'PrgEnv-cray') -> []
+  ('HelloMultiLangTest_0', 'archer2:login', 'PrgEnv-aocc') -> []
+  ('HelloMultiLangTest_0', 'archer2:compute', 'PrgEnv-gnu') -> []
+  ('HelloMultiLangTest_0', 'archer2:compute', 'PrgEnv-cray') -> []
+  ('HelloMultiLangTest_0', 'archer2:compute', 'PrgEnv-aocc') -> []
+[2023-01-12T11:21:54] verbose: reframe: Final number of test cases: 48
+[2023-01-12T11:21:54] info: reframe: [List of matched checks]
+[2023-01-12T11:21:54] info: reframe: - MpiInitTest %required_thread=multiple /6a4b6884
+[2023-01-12T11:21:54] info: reframe: - MpiInitTest %required_thread=serialized /a384c39f
+[2023-01-12T11:21:54] info: reframe: - MpiInitTest %required_thread=funneled /67184288
+[2023-01-12T11:21:54] info: reframe: - MpiInitTest %required_thread=single /50d41481
+[2023-01-12T11:21:54] info: reframe: - EnvironmentCheck /4bcf98aa
+[2023-01-12T11:21:54] info: reframe: - UlimitCheck /9c591e4b
+[2023-01-12T11:21:54] info: reframe: - CrayCPUTargetTest /22f62884
+[2023-01-12T11:21:54] info: reframe: - HelloWorldTestMPIOpenMP %linking=dynamic %lang=c /486d764c
+[2023-01-12T11:21:54] info: reframe: - HelloWorldTestMPI %linking=dynamic %lang=c /1556726b
+[2023-01-12T11:21:54] info: reframe: - ScaLAPACKTest %linkage=dynamic /940498c3
+[2023-01-12T11:21:54] info: reframe: - HelloMultiLangTest %lang=f90 /a000fc24
+[2023-01-12T11:21:54] info: reframe: - HelloMultiLangTest %lang=cpp /b059a3fc
+[2023-01-12T11:21:54] info: reframe: - HelloMultiLangTest %lang=c /ed3216b7
+[2023-01-12T11:21:54] info: reframe: Found 13 check(s)
+
+[2023-01-12T11:21:54] info: reframe: Log file(s) saved in '/mnt/lustre/a2fs-work2/work/y02/y02/dshanks/reframe/hpe_cray_reframe/reframe.log'
+[2023-01-12T11:21:54] debug: reframe: >>> profiler report [start] <<<
+[2023-01-12T11:21:54] debug: reframe: main: 0.608995 s
+[2023-01-12T11:21:54] debug: reframe:     test processing: 0.438970 s
+[2023-01-12T11:21:54] debug: reframe:         RegressionCheckLoader.load_all: 0.417210 s
+[2023-01-12T11:21:54] debug: reframe:             TestRegistry.instantiate_all: 0.318893 s
+[2023-01-12T11:21:54] debug: reframe:         generate_testcases: 0.000909 s
+[2023-01-12T11:21:54] debug: reframe:         main.<locals>._sort_testcases: 0.000025 s
+[2023-01-12T11:21:54] debug: reframe:         build_deps: 0.001954 s
+[2023-01-12T11:21:54] debug: reframe:         validate_deps: 0.001662 s
+[2023-01-12T11:21:54] debug: reframe:         toposort: 0.002013 s
+[2023-01-12T11:21:54] debug: reframe:         list_checks: 0.011085 s
+[2023-01-12T11:21:54] debug: reframe: >>> profiler report [ end ] <<<
