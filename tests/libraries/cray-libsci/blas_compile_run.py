@@ -1,4 +1,4 @@
-# From https://github.com/EPCCed/epcc-reframe/blob/master/tests/libs/blas/blas.py
+# Based on https://github.com/EPCCed/epcc-reframe/blob/master/tests/libs/blas/blas.py
 # Author A. Turner EPCC 2022
 
 import reframe as rfm
@@ -27,13 +27,12 @@ class BlasTest(rfm.RegressionTest):
                 'transpose': sn.extractsingle(r'Transpose\s+=\s+(?P<transpose>\S+)',
                                      self.stdout, 'transpose', float)
         }
+        # Lower FLOP/s as default cpu_freq dropped to 2.0GHz 
+        # so roughly 30% drop in performance for CPU bound
         self.reference = {
-                'archer2:compute': {'normal': (16.75, -0.15, 0.15, 'FLOP/s'),
-                                    'transpose': (16.75, -0.15, 0.15, 'FLOP/s')},
-                'archer2:login': {'normal': (16.75, -0.15, 0.15, 'FLOP/s'),
-                                  'transpose': (16.75, -0.15, 0.15, 'FLOP/s')}
-        }
-        self.extra_resources = {
-                'qos': {'qos': 'standard'}
+                'archer2:compute': {'normal': (11.75, -0.15, 0.15, 'FLOP/s'),
+                                    'transpose': (11.75, -0.15, 0.15, 'FLOP/s')},
+                'archer2:login': {'normal': (11.75, -0.15, 0.15, 'FLOP/s'),
+                                  'transpose': (11.75, -0.15, 0.15, 'FLOP/s')}
         }
         self.tags = {'performance','functionality','short'}
