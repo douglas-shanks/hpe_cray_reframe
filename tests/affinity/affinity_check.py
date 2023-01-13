@@ -52,6 +52,14 @@ class AffinityBaseTest(rfm.RegressionTest):
         self.build_system.cxxflags = prgenv_flags
         self.build_system.fflags = prgenv_flags
 
+    @run_after('init')
+    def set_prgenv_compilation_flags_map(self):
+        self.prgenv_flags = {
+            'PrgEnv-aocc': ['-fopenmp'],
+            'PrgEnv-cray': ['-homp' if self.lang == 'f90' else '-fopenmp'],
+            'PrgEnv-gnu': ['-fopenmp'],
+        }
+
     @run_before('sanity')
     def set_sanity(self):
 
@@ -82,9 +90,6 @@ class AffinityBaseTest(rfm.RegressionTest):
 class AffinityTestOpenMP(AffinityBaseTest):
     descr = 'Checking core affinity for OMP threads.'
     sourcesdir = 'src'
-    #num_tasks = 8
-    #num_tasks_per_node = 16
-    #num_cpus_per_task = 16
     cases = {
                 'ref_archer2:compute': 'archer2_numa_omp.txt',
                 'num_cpus_per_task_archer2:compute': 16,
@@ -95,14 +100,6 @@ class AffinityTestOpenMP(AffinityBaseTest):
     num_tasks=cases['num_tasks']
     num_tasks_per_node = cases['num_tasks_per_node']
     num_cpus_per_task = cases['num_cpus_per_task']
-
-    @run_after('init')
-    def set_prgenv_compilation_flags_map(self):
-        self.prgenv_flags = {
-            'PrgEnv-aocc': ['-fopenmp'],
-            'PrgEnv-cray': ['-homp' if self.lang == 'f90' else '-fopenmp'],
-            'PrgEnv-gnu': ['-fopenmp'],
-        }
 
     @run_after('init')
     def update_description(self):
@@ -120,4 +117,62 @@ class AffinityTestOpenMP(AffinityBaseTest):
             'OMP_PLACES': self.cases['OMP_PLACES']
         }
 
-        
+@rfm.simple_test
+class AffinityTestMPI_full_nosmt(AffinityBaseTest):
+    descr = 'Checking core affinity for MPI processes. Fully populated with no SMT threads'
+    valid_systems = ['archer2:compute']
+    cases = {
+                'ref_archer2:compute': 'archer2_fully_populated_nosmt.txt',
+                'runopts_archer2:compute': ['--hint=nomultithread', '--distribution=block:block'],
+                'num_tasks': 128,
+                'num_tasks_per_node': 128,
+                'num_cpus_per_task': 1,
+        }
+    num_tasks = cases['num_tasks']
+    num_tasks_per_node =cases['num_tasks_per_node']
+    num_cpus_per_task = cases['num_cpus_per_task']
+
+    @run_before('run')
+    def set_launcher(self):
+        partname = self.current_partition.fullname
+        self.job.launcher.options = self.cases['runopts_%s' % partname]
+
+@rfm.simple_test
+class AffinityTestMPI_full_smt(AffinityBaseTest):
+    descr = 'Checking core affinity for MPI processes. Fully populated with SMT threads'
+    valid_systems = ['archer2:compute']
+    cases = {
+                'ref_archer2:compute': 'archer2_fully_populated_smt.txt',
+                'runopts_archer2:compute': ['--ntasks=256', '--ntasks-per-node=256', '--hint=multithread', '--distribution=block:block'],
+                'num_tasks': 128,
+                'num_tasks_per_node': 128,
+                'num_cpus_per_task': 1 }
+    num_tasks = cases['num_tasks']
+    num_tasks_per_node =cases['num_tasks_per_node']
+    num_cpus_per_task = cases['num_cpus_per_task']
+
+    @run_before('run')
+    def set_launcher(self):
+        partname = self.current_partition.fullname
+        self.job.launcher.options = self.cases['runopts_%s' % partname]
+
+@rfm.simple_test
+class AffinityTestMPI_proc_per_numa(AffinityBaseTest):
+    descr = 'Checking core affinity for MPI processes. Single process per NUMA'
+    valid_systems = ['archer2:compute']
+    cases = {
+               'ref_archer2:compute': 'archer2_single_process_per_numa.txt',
+                'runopts_archer2:compute': ['--hint=nomultithread', '--distribution=block:block'],
+                'num_tasks': 8,
+                'num_tasks_per_node': 8,
+                'num_cpus_per_task': 16 }
+    num_tasks = cases['num_tasks']
+    num_tasks_per_node =cases['num_tasks_per_node']
+    num_cpus_per_task = cases['num_cpus_per_task']
+
+    @run_before('run')
+    def set_launcher(self):
+        partname = self.current_partition.fullname
+        self.job.launcher.options = self.cases['runopts_%s' % partname]
+
+
