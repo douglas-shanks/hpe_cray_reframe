@@ -1,4 +1,18 @@
 # https://github.com/EPCCed/epcc-reframe/blob/master/configuration/archer2_settings.py
+import os
+from pathlib import Path
+import json
+
+# Get root dir
+root_dir = Path(__file__).parent
+
+archer2_login_topo = json.load(
+    open(os.path.join(root_dir, 'topologies', 'archer2_login.json'), 'r')
+)
+archer2_compute_topo = json.load(
+    open(os.path.join(root_dir, 'topologies', 'archer2_compute.json'), 'r')
+)
+
 
 site_configuration = {
     'systems': [
@@ -14,6 +28,9 @@ site_configuration = {
                     'scheduler': 'local',
                     'launcher': 'local',
                     'environs': ['PrgEnv-gnu','PrgEnv-cray','PrgEnv-aocc'],
+                    'processor': {
+                        **archer2_login_topo,
+                        },
                 },
                 {
                     'name': 'compute',
@@ -23,6 +40,9 @@ site_configuration = {
                     'access': ['--hint=nomultithread','--distribution=block:block','--partition=standard', '--qos=short'],
                     'environs': ['PrgEnv-gnu','PrgEnv-cray','PrgEnv-aocc'],
                     'max_jobs': 16,
+                    'processor': {
+                        **archer2_compute_topo,
+                        },
                     #'resources': [
                     #    {
                     #        'name': 'qos',

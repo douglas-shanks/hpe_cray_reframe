@@ -5,7 +5,7 @@ import reframe as rfm
 import reframe.utility.sanity as sn
 
 @rfm.simple_test
-class BlasTest(rfm.RegressionTest):
+class DGEMVTest(rfm.RegressionTest):
     def __init__(self):
         self.valid_systems = ['archer2']
         self.valid_prog_environs = ['PrgEnv-cray','PrgEnv-gnu','PrgEnv-aocc']
