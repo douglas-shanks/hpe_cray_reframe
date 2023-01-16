@@ -49,23 +49,11 @@ class PiBaseTest(rfm.RegressionTest):
         self.build_system.cxxflags = prgenv_flags
         self.build_system.fflags = prgenv_flags
 
-# FIXME!
-#    @sanity_function
-#    def assert_diff(self):
-#        diff_reference = 0.00000018
-#        diff_comp = sn.extractsingle(r'diff = (?P<diff_ex>\S+) %',self.stdout, 'diff_ex', float)
-#        energy_diff = sn.abs(diff_comp - diff_reference)
-#        return sn.all([
-#            sn.assert_lt(energy_diff, 1e-5)
-#        ])
-
-
-    @run_before('sanity')
-    def set_sanity(self):
-        result = sn.extractsingle(r'diff = \s+(?P<result>\S+)!)',
-                self.stdout, 'result', float)
-        self.sanity_patterns = sn.assert_reference(result, 0.00000018, None, 1e-5)
-
+    @sanity_function
+    def assert_diff(self):
+        regex = (r'diff\s=\s+(?P<result>\S+)\%')
+        diff = sn.extractsingle(regex,self.stdout, 'result', float)
+        return sn.assert_reference(diff, 0.00000018, 0, 1e-8)
 
     @performance_function('s')
     def compilation_time(self):
