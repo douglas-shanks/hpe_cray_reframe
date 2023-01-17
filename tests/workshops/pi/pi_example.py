@@ -64,7 +64,7 @@ class PiBaseTest(rfm.RegressionTest):
 class PiTestMPIOpenMP(PiBaseTest):
     sourcesdir = 'src'
     num_tasks = 6
-    num_tasks_per_node = 3
+    num_tasks_per_node = 6
     num_cpus_per_task = 4
 
     @run_after('init')
