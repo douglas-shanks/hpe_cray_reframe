@@ -1,0 +1,32 @@
+This is the VH1-IO benchmark example
+
+See PDF document for extra information
+
+Modules required
+
+module load cray-hdf5
+module load cray-netcdf
+module load perftools-lite
+
+Quick Build Instructions
+cd src/; make
+
+Quick Run Instructions
+cd run; sbatch run_XXX.slurm  (as appropriate for your system)
+
+Binaries should be placed in ./bin
+
+Each run will produce several NetCDF output files (one per process).
+
+The CrayPAT monitoring framework has been enabled for this application. It will produce a listing of the most important files by time taken for reading and writing. You can find this information in the vh1.o* outputfiles.
+
+The striping of files is controlled by the settings in the run.slurm script
+
+# Set Lustre stripes on the output directory
+STRIPE_SIZE=2m
+STRIPE_COUNT=1
+lfs setstripe -c ${STRIPE_COUNT} -s ${STRIPE_SIZE} ${RUNDIR}/output
+
+You can edit these settings and rerun the application.
+
+What is the optimal stripe settings for this application?
