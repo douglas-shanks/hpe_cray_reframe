@@ -3,13 +3,14 @@ import reframe.utility.sanity as sn
 
 
 @rfm.simple_test
-class BuildRunCloverleafeTest(rfm.RegressionTest):
-    descr = ('Build and run the Cloverleaf mini-app')
+class BuildRunTealeafTest(rfm.RegressionTest):
+    descr = ('Build and run the Tealeaf mini-app')
     valid_systems = ['archer2:compute']
     valid_prog_environs = ['PrgEnv-cray','PrgEnv-gnu','PrgEnv-aocc']
+    modules = ['cpe/22.04']
     #self.sourcesdir = None
-    sourcesdir = 'https://github.com/UK-MAC/CloverLeaf_ref.git'
-    executable = './clover_leaf'
+    sourcesdir = 'https://github.com/UK-MAC/TeaLeaf_ref.git'
+    executable = './tea_leaf'
     build_system = 'Make'
     num_tasks=8
     num_tasks_per_node=8
@@ -21,11 +22,11 @@ class BuildRunCloverleafeTest(rfm.RegressionTest):
         if self.current_environ.name.startswith('PrgEnv-gnu'):
             self.build_system.options = ['MPI_COMPILER=ftn C_MPI_COMPILER=cc C_OPTIONS="-O3 -fopenmp" OPTIONS="-O3 -fopenmp -fallow-argument-mismatch"']
         elif self.current_environ.name.startswith('PrgEnv-cray'):
-            self.build_system.options = ['MPI_COMPILER=ftn C_MPI_COMPILER=cc C_OPTIONS="-O3 -fopenmp" OPTIONS="-O3 -homp"']
-        elif self.current_environ.name.startswith('PrgEnv-aocc'):
-            self.build_system.options = ['MPI_COMPILER=ftn C_MPI_COMPILER=cc C_OPTIONS="-O3 -fopenmp" OPTIONS="-O3 -fopenmp -march=znver2"']
+            self.build_system.options = ['MPI_COMPILER=ftn C_MPI_COMPILER=cc C_OPTIONS="-O3 -fopenmp" OPTIONS="-O3 -homp -eZ"']
+        elif self.current_environ.name.startswith('PrgEnv-aocc'): # AOCC will fail with v2.X due to a compiler bug
+            self.build_system.options = ['MPI_COMPILER=ftn C_MPI_COMPILER=cc C_OPTIONS="-O3 -fopenmp -march=znver2" OPTIONS="-O3 -fopenmp -march=znver2 -cpp"']
 
     @sanity_function
-    def assert_clover(self):
+    def assert_tea(self):
         return sn.assert_found(r'PASSED', self.stdout)
 
