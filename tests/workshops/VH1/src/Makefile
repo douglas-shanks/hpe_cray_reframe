@@ -15,6 +15,7 @@
 FFLAGS_INTEL = -O2
 FFLAGS_CRAY = -O2 -emf
 FFLAGS_GNU = -O2
+FFLAGS_AOCC= -O2 -march=znver2 -cpp
 
 F90 = ftn
 FFLAGS = ${FFLAGS_$(PE_ENV)} -I${NETCDF_DIR}/include
@@ -40,7 +41,7 @@ VHOBJS = vh1mods.o zonemod.o vhone.o dtcon.o dump.o images.o init.o prin.o \
 	$(F90) $(FFLAGS) -c $<
 
 ${EXE}:	$(VHOBJS)
-	$(LDR) $(LDRFLAGS) -o ${EXE} $(VHOBJS) $(LIBS); mkdir -p ../bin; mv ${EXE} ../bin
+	$(LDR) $(LDRFLAGS) -o ${EXE} $(VHOBJS) $(LIBS) #; mkdir -p ../bin; mv ${EXE} ../bin
 #
 #
 clean:
