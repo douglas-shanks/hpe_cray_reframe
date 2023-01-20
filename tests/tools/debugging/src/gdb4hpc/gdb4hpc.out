@@ -1,0 +1,56 @@
+gdb4hpc 4.12 - Cray Line Mode Parallel Debugger
+With Cray Comparative Debugging Technology.
+Copyright 2007-2021 Hewlett Packard Enterprise Development LP.
+Copyright 1996-2016 University of Queensland. All Rights Reserved.
+
+Type "help" for a list of commands.
+Type "help <cmd>" for detailed help about a command.
+Submitting job to the batch system.
+No process, use launch/attach first.
+Line: 4 Text: bt
+
+gdb4hpc 4.13.10 - Cray Line Mode Parallel Debugger
+With Cray Comparative Debugging Technology.
+Copyright 2007-2021 Hewlett Packard Enterprise Development LP.
+Copyright 1996-2016 University of Queensland. All Rights Reserved.
+
+Type "help" for a list of commands.
+Type "help <cmd>" for detailed help about a command.
+Starting application, please wait...
+Creating MRNet communication network...
+Waiting for debug servers to attach to MRNet communications network...
+Timeout in 400 seconds. Please wait for the attach to complete.
+Number of dbgsrvs connected: [1];  Timeout Counter: [0]
+Number of dbgsrvs connected: [1];  Timeout Counter: [1]
+Number of dbgsrvs connected: [2];  Timeout Counter: [0]
+Finalizing setup...
+Launch complete.
+p{0..1}: Initial breakpoint, main at /mnt/lustre/a2fs-work2/work/y02/y02/dshanks/deadlock/deadlock.c:17
+p{0..1}: #0  main at /mnt/lustre/a2fs-work2/work/y02/y02/dshanks/deadlock/deadlock.c:17
+
+p{0..1}: Application halted in MPL_env2str
+show breakpoint           Show information about breakpoints.
+show dfblock              Show dataflow command blocking.
+show directories          Show current search path for finding source files.
+show environment          Show environment variables that were set.
+show error                Show warn and error epsilon for floating point comparison.
+show function             Show information about defined functions.
+show halt                 Show status of halting of processes on termination.
+show non-stop             Show mode for thread stopping during execution.
+show print                Show information about how things get printed.
+show scheduler-locking    Show mode for locking scheduler during execution.
+show stop                 Show status of stopping on assertion failure.
+show version              Show the debugger version number.
+p{0..1}: Application halted in MPII_init_thread_and_enter_cs
+p{0..1}: #3  main at /mnt/lustre/a2fs-work2/work/y02/y02/dshanks/deadlock/deadlock.c:17
+|
+|_ p{0}: #2  PMPI_Init
+|  p{0}: #1  MPIR_Init_thread
+|  p{0}: #0  MPII_init_thread_and_enter_cs
+|
+\_ p{1}: #2  PMPI_Init
+   p{1}: #1  MPIR_Init_thread
+   p{1}: #0  MPII_init_thread_and_enter_cs
+
+Shutting down debugger and killing application for 'p'.
+

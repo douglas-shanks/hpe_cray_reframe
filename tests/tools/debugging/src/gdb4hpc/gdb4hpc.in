@@ -1,0 +1,12 @@
+# --- input commands for gdb4hpc ---
+# this line is mandatory (cray case #224617):
+#maint set sync on
+launch $p{2} deadlock -g "-p standard -q standard --time=0:00:10 --nodes=1 -n 2 -c 1"
+bt
+c
+halt
+c
+show
+halt
+bt
+quit
