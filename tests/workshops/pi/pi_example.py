@@ -63,9 +63,9 @@ class PiBaseTest(rfm.RegressionTest):
 @rfm.simple_test
 class PiTestMPIOpenMP(PiBaseTest):
     sourcesdir = 'src'
-    num_tasks = 6
-    num_tasks_per_node = 6
-    num_cpus_per_task = 4
+    num_tasks = 8
+    num_tasks_per_node = 8
+    num_cpus_per_task = 16
 
     @run_after('init')
     def set_prgenv_compilation_flags_map(self):
@@ -86,5 +86,8 @@ class PiTestMPIOpenMP(PiBaseTest):
     @run_before('run')
     def set_omp_env_variable(self):
         # On SLURM there is no need to set OMP_NUM_THREADS if one defines
-        # num_cpus_per_task, but adding for completeness and portability
+        # num_cpus_per_task,i biut adding for completeness and portability
         self.env_vars['OMP_NUM_THREADS'] = str(self.num_cpus_per_task)
+        self.env_vars['OMP_PLACES'] = 'cores'
+        if self.current_environ.name.startswith('PrgEnv-gnu'):
+            self.env_vars['OMP_PROC_BIND'] = 'close'
