@@ -25,6 +25,15 @@ class BuildRunCloverleafeTest(rfm.RegressionTest):
         elif self.current_environ.name.startswith('PrgEnv-aocc'):
             self.build_system.options = ['MPI_COMPILER=ftn C_MPI_COMPILER=cc C_OPTIONS="-O3 -fopenmp" OPTIONS="-O3 -fopenmp -march=znver2"']
 
+    @run_before('run')
+    def set_omp_env_variable(self):
+        # On SLURM there is no need to set OMP_NUM_THREADS if one defines
+        # num_cpus_per_task,i biut adding for completeness and portability
+        self.env_vars['OMP_NUM_THREADS'] = str(self.num_cpus_per_task)
+        self.env_vars['OMP_PLACES'] = 'cores'
+        if self.current_environ.name.startswith('PrgEnv-gnu'):
+            self.env_vars['OMP_PROC_BIND'] = 'close'
+
     @sanity_function
     def assert_clover(self):
         return sn.assert_found(r'PASSED', self.stdout)
