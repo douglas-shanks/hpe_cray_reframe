@@ -7,7 +7,7 @@ class BuildRunMiniWeatherTest(rfm.RegressionTest):
     # {{{ pe
     descr = ('Build and run the miniWeather mini-app')
     valid_systems = ['archer2:compute']
-    valid_prog_environs = ['PrgEnv-cray','PrgEnv-gnu','PrgEnv-aocc'] is currently broken
+    valid_prog_environs = ['PrgEnv-cray','PrgEnv-gnu','PrgEnv-aocc']
     modules = ['cray-parallel-netcdf']
     # {{{ compile
     sourcesdir = 'https://github.com/mrnorman/miniWeather.git'

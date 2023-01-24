@@ -13,7 +13,7 @@ import reframe.utility.sanity as sn
 
 
 @rfm.simple_test
-class StreamTest(rfm.RegressionTest):
+class DistStreamTest(rfm.RegressionTest):
     def __init__(self):
         self.valid_systems = ['archer2:compute']
         self.valid_prog_environs = ['*']

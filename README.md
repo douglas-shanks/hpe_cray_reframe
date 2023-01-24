@@ -21,5 +21,10 @@ cd hpe_cray_reframe
 You can then list all the tests on any HPE Cray supported machine as follows:
 
 ```
-reframe -C config/* -c tests/ -R -l
+reframe -C config/machine_name.py -c tests/ -R -l
 ```
+and run with 
+```
+reframe -C config/machine_name.py -c tests/ -R -r
+```
+
