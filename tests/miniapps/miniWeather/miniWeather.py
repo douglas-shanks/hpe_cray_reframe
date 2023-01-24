@@ -7,7 +7,7 @@ class BuildRunMiniWeatherTest(rfm.RegressionTest):
     # {{{ pe
     descr = ('Build and run the miniWeather mini-app')
     valid_systems = ['archer2:compute']
-    valid_prog_environs = ['PrgEnv-cray','PrgEnv-gnu'] #,'PrgEnv-aocc'] is currently broken
+    valid_prog_environs = ['PrgEnv-cray','PrgEnv-gnu','PrgEnv-aocc'] is currently broken
     modules = ['cray-parallel-netcdf']
     # {{{ compile
     sourcesdir = 'https://github.com/mrnorman/miniWeather.git'
@@ -23,13 +23,13 @@ class BuildRunMiniWeatherTest(rfm.RegressionTest):
     
     @run_before('compile')
     def setflags(self):
-        self.build_system.config_opts=['-DCMAKE_Fortran_COMPILER=ftn -DLDFLAGS="-L${PARALLEL_NETCDF_DIR}/lib -lpnetcdf" -DNX=400 -DNZ=200 -DSIM_TIME=100 -DOUT_FREQ=1000' ]
+        self.build_system.config_opts=['-DCMAKE_Fortran_COMPILER=ftn -DLDFLAGS="-L${CRAY_PARALLEL_NETCDF_DIR}/lib -lpnetcdf" -DNX=400 -DNZ=200 -DSIM_TIME=100 -DOUT_FREQ=1000 -DFFLAGS="-I${CRAY_PARALLEL_NETCDF_DIR}/include"' ]
         if self.current_environ.name.startswith('PrgEnv-cray'):
-            self.build_system.config_opts += ['-DFFLAGS="-I${PARALLEL_NETCDF_DIR}/include" -DOPENMP_FLAGS="-homp"' ]
+            self.build_system.config_opts += ['-DOPENMP_FLAGS="-homp"' ]
         elif self.current_environ.name.startswith('PrgEnv-gnu'):
-            self.build_system.config_opts += ['-DFFLAGS="-I${PARALLEL_NETCDF_DIR}/include -ffree-line-length-none" -DOPENMP_FLAGS="-fopenmp"' ]
-#        elif self.current_environ.name.startswith('PrgEnv-aocc'):
-#            self.build_system.config_opts += ['-DFFLAGS="-I${PARALLEL_NETCDF_DIR}/include -march=znver2"-DOPENMP_FLAGS="-fopenmp"'  ]
+            self.build_system.config_opts += ['-ffree-line-length-none" -DOPENMP_FLAGS="-fopenmp"' ]
+        elif self.current_environ.name.startswith('PrgEnv-aocc'):
+            self.build_system.config_opts += ['-march=znver2"-DOPENMP_FLAGS="-fopenmp"'  ]
 
     @run_before('run')
     def set_omp_env_variable(self):
