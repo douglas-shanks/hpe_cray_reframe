@@ -7,6 +7,7 @@ c
 halt
 c
 show
+maint sleep 10
 halt
 bt
 quit
