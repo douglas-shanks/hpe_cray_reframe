@@ -1,5 +1,7 @@
 # ReFrame test suite for HPE Cray EX machines
 
+**This version is dormant. Have moved to an internal gitlab for further development.**
+
 To run the test suite you need first to clone and bootstrap ReFrame and then this repo:
 
 ## Install ReFrame
@@ -14,7 +16,7 @@ popd
 ## Clone the tests
 
 ```
-https://github.com/douglas-shanks/hpe_cray_reframe.git
+git clone https://github.com/douglas-shanks/hpe_cray_reframe.git
 cd hpe_cray_reframe
 ```
 
