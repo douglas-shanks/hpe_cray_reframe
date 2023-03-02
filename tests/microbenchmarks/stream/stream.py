@@ -5,6 +5,7 @@
 
 import reframe as rfm
 import reframe.utility.sanity as sn
+from reframe.core.backends import getlauncher
 
 
 @rfm.simple_test
@@ -21,24 +22,27 @@ class StreamTest(rfm.RegressionTest):
         self.valid_prog_environs = ['PrgEnv-cray', 'PrgEnv-gnu',
                                     'PrgEnv-aocc']
 
-        self.use_multithreading = False
+        #self.use_multithreading = False # This will add --hint=nomultithread
 
         self.prgenv_flags = {
-            'PrgEnv-cray': ['-fopenmp', '-O3'],
-            'PrgEnv-gnu': ['-fopenmp', '-O3'],
-            'PrgEnv-aocc': ['-fopenmp', '-O3'],
+            'PrgEnv-cray': ['-fopenmp', '-O3','-hmodel=large','-DSTREAM_ARRAY_SIZE=2600000000'],
+            'PrgEnv-gnu': ['-fopenmp', '-O3', '-mcmodel=large', '-DSTREAM_ARRAY_SIZE=2600000000'],
+            'PrgEnv-aocc': ['-fopenmp', '-O3', '-mcmodel=large', '-DSTREAM_ARRAY_SIZE=2600000000'],
         }
 
         self.sourcepath = 'stream.c'
         self.build_system = 'SingleSource'
+        self.tool = './Stream'
+        self.executable = self.tool
         self.num_tasks = 1
         self.num_tasks_per_node = 1
         self.stream_cpus_per_task = {
-            'archer2:compute': 128,
+            'archer2:compute': 16,
         }
         self.env_vars = {
-            'OMP_PLACES': 'threads',
-            'OMP_PROC_BIND': 'spread'
+            'OMP_PLACES': '"{0:8}:16:8"',
+            'OMP_PROC_BIND': 'spread',
+            'OMP_NUM_THREADS' : '16'
         }
         self.sanity_patterns = sn.assert_found(
             r'Solution Validates: avg error less than', self.stdout)
@@ -48,13 +52,13 @@ class StreamTest(rfm.RegressionTest):
         }
         self.stream_bw_reference = {
             'PrgEnv-cray': {
-                'archer2:compute': {'triad': (2800000, -0.05, None, 'MB/s')},
+                'archer2:compute': {'triad': (200000, -0.05, None, 'MB/s')},
             },
             'PrgEnv-gnu': {
-                'archer2:compute': {'triad': (2100000, -0.05, None, 'MB/s')},
+                'archer2:compute': {'triad': (200000, -0.05, None, 'MB/s')},
             },
             'PrgEnv-aocc': {
-                'archer2:compute': {'triad': (3800000, -0.05, None, 'MB/s')},
+                'archer2:compute': {'triad': (200000, -0.05, None, 'MB/s')},
             },
         }
         self.tags = {'production', 'craype'}
@@ -66,10 +70,21 @@ class StreamTest(rfm.RegressionTest):
         self.env_vars['OMP_NUM_THREADS'] = str(self.num_cpus_per_task)
         envname = self.current_environ.name
 
-        self.build_system.cflags = self.prgenv_flags.get(envname, ['-O3'])
+        self.build_system.cflags = ['-fopenmp -O3 -mcmodel=medium -DSTREAM_ARRAY_SIZE=2600000000']
+
+
+        #self.build_system.cflags = self.prgenv_flags.get(envname, ['-O3 -fopenmp'])
         #self.variables['OMP_PROC_BIND'] = 'true'
 
         try:
             self.reference = self.stream_bw_reference[envname]
         except KeyError:
-            self.reference = self.stream_bw_reference['PrgEnv-gnu']
+            self.reference = self.stream_bw_reference['PrgEnv-gnu']           
+
+    # {{{ set_launcher
+    @run_before('run')
+    def set_launcher(self):
+        # The job launcher has to be changed because
+        # the tool can be called without srun
+        self.job.launcher = getlauncher('local')()
+    # }}}

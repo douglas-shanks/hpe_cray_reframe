@@ -37,7 +37,7 @@ site_configuration = {
                     'descr': 'Compute nodes',
                     'scheduler': 'slurm',
                     'launcher': 'srun',
-                    'access': ['--hint=nomultithread','--distribution=block:block','--partition=standard', '--qos=short'],
+                    'access': ['--partition=standard', '--qos=short', '--hint=nomultithread'],
                     'environs': ['PrgEnv-gnu','PrgEnv-cray','PrgEnv-aocc'],
                     'max_jobs': 16,
                     'processor': {
