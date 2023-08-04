@@ -1,6 +1,6 @@
 # ReFrame test suite for HPE Cray EX machines
 
-**This version is dormant. Have moved to an internal gitlab for further development.**
+**This version is dormant. Further developments have moved to an internal gitlab.**
 
 To run the test suite you need first to clone and bootstrap ReFrame and then this repo:
 
